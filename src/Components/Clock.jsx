@@ -1,10 +1,21 @@
-import React,{useState,useEffect,useRef} from "react";
+import React,{useState} from "react";
 
 function Clock(){
-    const [time,setTime] = useState(new Date());
-    const update = useRef;
+    const getTime = () => new Date();
 
-    useEffect = () =>{
-        
+    const [time,setTime] = useState(getTime());
+
+    const update = () =>{
+        setTime(getTime());
     }
+    setInterval(update,1000);
+    const formattedTime = time.toLocaleTimeString();
+
+    return (
+        <div>
+            {formattedTime}
+        </div>
+    )
 }
+
+export default Clock;

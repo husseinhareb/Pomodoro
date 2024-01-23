@@ -1,4 +1,4 @@
-
+import Clock from "./Clock";
 function Navbar()
 {
 
@@ -6,7 +6,7 @@ function Navbar()
         <nav className="">
             <ul>
                 <li>Pomodoro</li>
-                <li></li>
+                <li><Clock /></li>
             </ul>
         </nav>
     )
