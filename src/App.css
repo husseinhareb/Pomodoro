@@ -1,0 +1,15 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.pomodoro{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:10%;
+  background-color: red;
+  width: 400px;
+  height: 200px;
+  
+}

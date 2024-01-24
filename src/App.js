@@ -1,10 +1,11 @@
 import './App.css';
-import Clock from './Components/Clock';
+import Pomodoro from './Components/Pomodoro';
 import Navbar from './Components/Navbar'
 
 function App() {
   return (
-    <Navbar />
+    <Navbar />,
+    <Pomodoro />
   );
 }
 
