@@ -1,9 +1,8 @@
+import Timer from './Timer'
 function Pomodoro()
 {
     return(
-        <div className="pomodoro">
-            <button className="start">START</button>
-        </div>
+        <Timer />
     )
 }
 export default Pomodoro;
