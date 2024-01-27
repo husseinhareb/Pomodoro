@@ -23,8 +23,8 @@ function Timer()
 
         return (
             <div>
-            <div>{minutes}:{seconds < 10 ? "0" : ""}{seconds}</div>
-            <button onClick={toggleTimer} >{isRunning ? 'STOP':'START'}</button>
+            <div className="countdown">{minutes}:{seconds < 10 ? "0" : ""}{seconds}</div>
+            <button className="start" onClick={toggleTimer} >{isRunning ? 'STOP':'START'}</button>
             </div>
         )
 }

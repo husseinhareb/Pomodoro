@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Valera+Round&display=swap');
+body{
+    background-color: #BA4949;
+}
 .navbar {
     background-color: #333;
     color: #fff;
@@ -13,3 +17,27 @@ ul {
 li {
     margin-right: 10px; 
 }
+
+.pomodoroBox {
+    background-color: #C15C5C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 280px;
+    width: 500px;
+    margin: 10% auto 0; 
+}
+
+
+.countdown{
+    font-family: 'Valera Round', sans-serif;
+    font-size: 120px;
+    color: white;
+    font-weight: 1000;
+    letter-spacing: 4px;
+}
+
+.start{
+    width: 140px;
+    height: 50px;
+};
