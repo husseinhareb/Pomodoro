@@ -1,11 +1,13 @@
 import './App.css';
 import Pomodoro from './Components/Pomodoro';
-import Navbar from './Components/Navbar'
+import Navbar from './Components/Navbar';
 
 function App() {
   return (
-    <Navbar />,
-    <Pomodoro />
+    <div>
+      <Navbar />
+      <Pomodoro />
+    </div>
   );
 }
 
