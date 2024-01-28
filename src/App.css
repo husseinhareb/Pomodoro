@@ -37,7 +37,18 @@ li {
     letter-spacing: 4px;
 }
 
-.start{
+.start,.reset{
     width: 140px;
     height: 50px;
-};
+    color: #C15C5C; 
+    font-family: 'Valera Round', sans-serif;
+    font-weight: 1000;
+    margin-right: 10px;
+
+}
+
+.addMinute,.addSecond{
+    width: 40px;
+    height: 40px;
+    border: 0px;
+}
