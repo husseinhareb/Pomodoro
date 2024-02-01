@@ -34,32 +34,35 @@ function Timer() {
         }
     };
     const addSecond = () => {
-        if(!isRunning){
+        if (!isRunning) {
             setTime((prevTime) => prevTime + 1);
         }
     }
-    const substractMinute = () =>{
-        if(!isRunning)
-        {
-            setTime((prevTime) => prevTime -60);
+    const substractMinute = () => {
+        if (!isRunning) {
+            setTime((prevTime) => prevTime - 60);
         }
     }
-    const substractSecond = () =>{
-        if(!isRunning)
-        {
-            setTime((prevTime) => prevTime -1);
-        }    }
+    const substractSecond = () => {
+        if (!isRunning) {
+            setTime((prevTime) => prevTime - 1);
+        }
+    }
     return (
-        <div>
-            <button className="addMinute" onClick={addMinute}><i className="fas fa-plus"></i></button>
-            <button className="addSecond" onClick={addSecond}><i className="fas fa-plus"></i></button>
-            <div className="countdown">{minutes}:{seconds < 10 ? "0" : ""}{seconds}</div>
-            <button className="addMinute" onClick={substractMinute}><i className="fas fa-minus"></i></button>
-            <button className="addSecond" onClick={substractSecond}><i className="fas fa-minus"></i></button>
-            <div>
-            <button className="start" onClick={toggleTimer}>{isRunning ? 'STOP' : 'START'}</button>
-            <button className="reset" onClick={resetTimer}>RESET</button>
-            </div>
+        <div className="box"> 
+            <span>
+                <button className="addMinute" onClick={addMinute}><i className="fas fa-plus"></i></button>
+                <div className="countdown">{minutes}:</div>
+                <button className="addMinute" onClick={substractMinute}><i className="fas fa-minus"></i></button><br></br>
+                <button className="start" onClick={toggleTimer}>{isRunning ? 'STOP' : 'START'}</button>
+
+            </span>
+            <span>
+                <button className="addSecond" onClick={addSecond}><i className="fas fa-plus"></i></button>
+                <div className="countdown">{seconds < 10 ? "0" : ""}{seconds}</div>
+                <button className="addSecond" onClick={substractSecond}><i className="fas fa-minus"></i></button><br></br>
+                <button className="reset" onClick={resetTimer}>RESET</button>
+            </span>
         </div>
     );
 }
