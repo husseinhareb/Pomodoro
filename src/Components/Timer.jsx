@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import '@fortawesome/fontawesome-free/css/all.css';
-import userEvent from "@testing-library/user-event";
 
 function Timer() {
     const defaultTime = 25 * 60;
