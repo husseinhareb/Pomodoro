@@ -19,7 +19,7 @@ function Timer() {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     useEffect(() => {
-        document.title = minutes + ":" + (seconds < 10 ? "0" : "" + seconds);
+        document.title = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }, [time])
     const toggleTimer = () => {
         setIsRunning((prevIsRunning) => !prevIsRunning);
