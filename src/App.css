@@ -51,7 +51,7 @@ li {
 }
 
 .addMinute,.addSecond{
-    width: 40px;
+    width: 150px;
     height: 40px;
     border: 0px;
 }
@@ -67,4 +67,33 @@ span {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.settingsButton{
+    background-color: #C15C5C;
+    border: 0px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.settings-window {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    width: 300px;
+    height: 900px; 
+    color: black;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999; 
+    border-radius: 8px;
+  }
+  
+  .closeSettings{
+    border: 0px;
+    position: fixed;
+    right: 10px
 }
