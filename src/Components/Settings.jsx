@@ -6,19 +6,12 @@ function Settings({ onClose }) {
   const [longBreakTime, setLongBreakTime] = useState({ minutes: 15, seconds: 5 });
 
   const handleClick = () => {
-    onClose(); // Close the settings window
+    onClose(pomodoroTime);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Assuming you have a function to handle the submitted data
-    // You can pass the data to that function or dispatch an action
-    // depending on your application's state management approach.
-    console.log("Submitted data:", {
-      pomodoroTime,
-      shortBreakTime,
-      longBreakTime,
-    });
+    handleClick();
   };
 
   return (
