@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 function Settings({ onClose }) {
   const [pomodoroTime, setPomodoroTime] = useState({ minutes: 25, seconds: 0 });
   const [shortBreakTime, setShortBreakTime] = useState({ minutes: 5, seconds: 0 });
@@ -12,6 +11,7 @@ function Settings({ onClose }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     handleClick();
+    console.log(pomodoroTime)
   };
 
   return (

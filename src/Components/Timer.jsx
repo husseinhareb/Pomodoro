@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function Timer({ initialMinutes = 25, initialSeconds = 0 }) {
-    const defaultTime = initialMinutes * 60 + initialSeconds;
+function Timer() {
+    const defaultTime = 25 * 60;
     const [time, setTime] = useState(defaultTime);
     const [isRunning, setIsRunning] = useState(false);
-
     useEffect(() => {
         if (time <= 0 || !isRunning) return;
 
@@ -15,13 +14,12 @@ function Timer({ initialMinutes = 25, initialSeconds = 0 }) {
         return () => clearInterval(intervalId);
     }, [time, isRunning]);
 
+
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-
     useEffect(() => {
-        document.title = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    }, [time]);
-
+        document.title = minutes + ":" + (seconds < 10 ? "0" : "" + seconds);
+    }, [time])
     const toggleTimer = () => {
         setIsRunning((prevIsRunning) => !prevIsRunning);
     };
@@ -36,6 +34,7 @@ function Timer({ initialMinutes = 25, initialSeconds = 0 }) {
             <span>
                 <div className="countdown">{minutes}:</div>
                 <button className="start" onClick={toggleTimer}>{isRunning ? 'STOP' : 'START'}</button>
+
             </span>
             <span>
                 <div className="countdown">{seconds < 10 ? "0" : ""}{seconds}</div>
