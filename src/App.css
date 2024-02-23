@@ -62,7 +62,7 @@ span {
 }
 
 
-.box{
+.buttomButtons{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -95,4 +95,10 @@ span {
     border: 0px;
     position: fixed;
     right: 10px
+}
+
+.topButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
