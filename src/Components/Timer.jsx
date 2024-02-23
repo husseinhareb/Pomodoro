@@ -63,11 +63,11 @@ function Timer() {
     return (
         <div className="box">
             <div className="topButtons">
-                <button onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
+            <button onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
                 <button onClick={() => selectMode("ShortBreak")}>Short Break</button>
                 <button onClick={() => selectMode("LongBreak")}>Long Break</button>
             </div>
-            <div className="bottomButtons">
+            <div className="buttomButtons">
                 <span>
                     <div className="countdown">{minutes}:</div>
                     <button className="start" onClick={startTimer}>
@@ -82,6 +82,9 @@ function Timer() {
                     <button className="reset" onClick={resetTimer}>
                         RESET
                     </button>
+                </span>
+                <span>
+                <button>Skip</button>
                 </span>
             </div>
         </div>
