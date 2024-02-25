@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 function Timer() {
-    const [defaultTime, setDefaultTime] = useState(3 * 60); // Initial default time is 3 minutes
+    const [defaultTime, setDefaultTime] = useState(); 
     const [time, setTime] = useState(defaultTime);
     const [isRunning, setIsRunning] = useState(false);
-    const [selectedMode, setSelectedMode] = useState(""); // Track the selected timer mode
+    const [selectedMode, setSelectedMode] = useState("Pomodoro"); 
+    const [backgroundColor, setBackgroundColor] = useState("");
+    const [counter, setCounter] = useState(0); // State to manage counter
+    const [cookieValue, setCookieValue] = useState(null); // State to hold cookie value
 
     const modeOptions = {
-        Pomodoro: 8,
-        ShortBreak: 5,
-        LongBreak: 7 
+        Pomodoro: { time: 1, color: "#f55549", boxColor: "#a11b0e" },
+        ShortBreak: { time: 2, color: "#496df2", boxColor: "#0e31a1" },
+        LongBreak: { time: 1, color: "#3da10e", boxColor: "#1ee60b" }
     };
 
     useEffect(() => {
         if (selectedMode && !isRunning) {
-            setDefaultTime(modeOptions[selectedMode]);
-            setTime(modeOptions[selectedMode]);
+            const { time, color, boxColor } = modeOptions[selectedMode];
+            setDefaultTime(time);
+            setTime(time);
+            setBackgroundColor(color);
         }
     }, [selectedMode, isRunning]);
 
     useEffect(() => {
         if (time <= 0 && isRunning) {
-            if (selectedMode === "Pomodoro") {
-                setSelectedMode("ShortBreak");
-            } else {
-                setSelectedMode("Pomodoro");
-            }
-            setIsRunning(false);
+            handleTimerEnd();
         }
     }, [time, isRunning, selectedMode]);
 
@@ -39,6 +40,10 @@ function Timer() {
         }
     }, [time, isRunning]);
 
+    useEffect(() => {
+        document.body.style.backgroundColor = backgroundColor;
+    }, [backgroundColor]);
+
     const selectMode = (mode) => {
         setSelectedMode(mode);
         setIsRunning(false); // Stop the timer when the mode is changed
@@ -49,7 +54,22 @@ function Timer() {
     };
 
     const resetTimer = () => {
-        setTime(modeOptions[selectedMode]);
+        const { time, color } = modeOptions[selectedMode];
+        setTime(time);
+        setIsRunning(false);
+        setBackgroundColor(color);
+    };
+
+    const handleTimerEnd = () => {
+        if (selectedMode === 'Pomodoro') {
+            setSelectedMode('ShortBreak');
+            setCounter(prevCounter => prevCounter + 1); // Increment counter using setState
+        } else if (selectedMode === 'ShortBreak' && counter < 4) {
+            setSelectedMode('Pomodoro');
+        } else if (selectedMode === 'Pomodoro' && counter === 4) {
+            setSelectedMode('LongBreak');
+            setCounter(0); // Reset counter to 0
+        }
         setIsRunning(false);
     };
 
@@ -63,7 +83,7 @@ function Timer() {
     return (
         <div className="box">
             <div className="topButtons">
-            <button onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
+                <button onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
                 <button onClick={() => selectMode("ShortBreak")}>Short Break</button>
                 <button onClick={() => selectMode("LongBreak")}>Long Break</button>
             </div>
@@ -84,11 +104,12 @@ function Timer() {
                     </button>
                 </span>
                 <span>
-                <button>Skip</button>
+                    <button>Skip</button>
                 </span>
             </div>
         </div>
     );
+
 }
 
 export default Timer;

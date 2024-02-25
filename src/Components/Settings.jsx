@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
+
 function Settings({ onClose }) {
   const [pomodoroTime, setPomodoroTime] = useState({ minutes: 25, seconds: 0 });
-  const [shortBreakTime, setShortBreakTime] = useState({ minutes: 5, seconds: 0 });
-  const [longBreakTime, setLongBreakTime] = useState({ minutes: 15, seconds: 5 });
 
   const handleClick = () => {
     onClose(pomodoroTime);
@@ -11,12 +11,15 @@ function Settings({ onClose }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     handleClick();
-    console.log(pomodoroTime)
-  };
+    Cookies.set("pomodoroTime", JSON.stringify(pomodoroTime), { sameSite: "None", secure: true });
+};
+
 
   return (
     <div className="settings-window">
-      <button onClick={handleClick} className="closeSettings">X</button>
+      <button onClick={handleClick} className="closeSettings">
+        X
+      </button>
       <hr />
       <h1>Timer Settings</h1>
       <form onSubmit={handleSubmit}>
@@ -41,7 +44,6 @@ function Settings({ onClose }) {
             }
           />
         </div>
-        {/* Similar input fields for Short Break and Long Break */}
         <button type="submit">Ok</button>
       </form>
     </div>
