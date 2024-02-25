@@ -103,3 +103,20 @@ span {
     align-items: center;
 }
 
+/* Add this CSS to your stylesheet or component */
+.button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 0 5px;
+    color: #ffffff;
+    font-size: 16px;
+  }
+  
+  .selected {
+    background-color: #ffffff; /* Change this to your desired color */
+    color: #000000; /* Change this to your desired text color */
+  }
+  

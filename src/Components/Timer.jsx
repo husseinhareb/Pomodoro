@@ -69,7 +69,7 @@ function Timer() {
         }
         else if(selectedMode === 'LongBreak'){
             setSelectedMode('Pomodoro');
-            setCounter(0); 
+            setCounter(1); 
         }
         setIsRunning(false);
         console.log(counter);
@@ -85,9 +85,10 @@ function Timer() {
     return (
         <div className="box">
             <div className="topButtons">
-                <button onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
-                <button onClick={() => selectMode("ShortBreak")}>Short Break</button>
-                <button onClick={() => selectMode("LongBreak")}>Long Break</button>
+            <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
+<button className={`button ${selectedMode === "ShortBreak" ? "selected" : ""}`} onClick={() => selectMode("ShortBreak")}>Short Break</button>
+<button className={`button ${selectedMode === "LongBreak" ? "selected" : ""}`} onClick={() => selectMode("LongBreak")}>Long Break</button>
+
             </div>
             <div className="buttomButtons">
                 <span>
