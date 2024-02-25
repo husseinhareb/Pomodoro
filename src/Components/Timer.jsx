@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 
 function Timer() {
     const [defaultTime, setDefaultTime] = useState(); 
@@ -7,8 +6,7 @@ function Timer() {
     const [isRunning, setIsRunning] = useState(false);
     const [selectedMode, setSelectedMode] = useState("Pomodoro"); 
     const [backgroundColor, setBackgroundColor] = useState("");
-    const [counter, setCounter] = useState(0); // State to manage counter
-    const [cookieValue, setCookieValue] = useState(null); // State to hold cookie value
+    const [counter, setCounter] = useState(1); 
 
     const modeOptions = {
         Pomodoro: { time: 1, color: "#f55549", boxColor: "#a11b0e" },
@@ -46,7 +44,7 @@ function Timer() {
 
     const selectMode = (mode) => {
         setSelectedMode(mode);
-        setIsRunning(false); // Stop the timer when the mode is changed
+        setIsRunning(false);
     };
 
     const startTimer = () => {
@@ -61,16 +59,20 @@ function Timer() {
     };
 
     const handleTimerEnd = () => {
-        if (selectedMode === 'Pomodoro') {
+        if (selectedMode === 'Pomodoro' && counter <4) {
             setSelectedMode('ShortBreak');
-            setCounter(prevCounter => prevCounter + 1); // Increment counter using setState
         } else if (selectedMode === 'ShortBreak' && counter < 4) {
+            setCounter(prevCounter => prevCounter + 1);
             setSelectedMode('Pomodoro');
         } else if (selectedMode === 'Pomodoro' && counter === 4) {
             setSelectedMode('LongBreak');
-            setCounter(0); // Reset counter to 0
+        }
+        else if(selectedMode === 'LongBreak'){
+            setSelectedMode('Pomodoro');
+            setCounter(0); 
         }
         setIsRunning(false);
+        console.log(counter);
     };
 
     const minutes = Math.floor(time / 60);
@@ -104,7 +106,7 @@ function Timer() {
                     </button>
                 </span>
                 <span>
-                    <button>Skip</button>
+                    <button onClick={handleTimerEnd}>Skip</button>
                 </span>
             </div>
         </div>
