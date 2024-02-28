@@ -1,27 +1,51 @@
 import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 function Timer() {
-    const [defaultTime, setDefaultTime] = useState(); 
-    const [time, setTime] = useState(defaultTime);
-    const [isRunning, setIsRunning] = useState(false);
-    const [selectedMode, setSelectedMode] = useState("Pomodoro"); 
-    const [backgroundColor, setBackgroundColor] = useState("");
-    const [counter, setCounter] = useState(1); 
+  const [defaultTime, setDefaultTime] = useState();
+  const [time, setTime] = useState(defaultTime);
+  const [isRunning, setIsRunning] = useState(false);
+  const [selectedMode, setSelectedMode] = useState("Pomodoro");
+  const [backgroundColor, setBackgroundColor] = useState("");
+  const [counter, setCounter] = useState(1);
 
-    const modeOptions = {
-        Pomodoro: { time: 1, color: "#f55549", boxColor: "#a11b0e" },
-        ShortBreak: { time: 2, color: "#496df2", boxColor: "#0e31a1" },
-        LongBreak: { time: 1, color: "#3da10e", boxColor: "#1ee60b" }
-    };
+  const modeOptions = {
+    Pomodoro: { time: 25, color: "#f55549", boxColor: "#a11b0e" },
+    ShortBreak: { time: 5, color: "#496df2", boxColor: "#0e31a1" },
+    LongBreak: { time: 15, color: "#3da10e", boxColor: "#1ee60b" }
+  };
 
-    useEffect(() => {
-        if (selectedMode && !isRunning) {
-            const { time, color, boxColor } = modeOptions[selectedMode];
-            setDefaultTime(time);
-            setTime(time);
-            setBackgroundColor(color);
+  useEffect(() => {
+    let prevPomodoroTime = null;  
+    const handleCookieChange = () => {
+      const pomodoroTimeCookie = Cookies.get("pomodoroTime");
+      if (pomodoroTimeCookie) {
+        const parsedPomodoroTime = JSON.parse(pomodoroTimeCookie);
+        if (JSON.stringify(parsedPomodoroTime) !== JSON.stringify(prevPomodoroTime)) {
+          setTime(parsedPomodoroTime.minutes * 60 + parsedPomodoroTime.seconds);
+          console.log(parsedPomodoroTime); 
+          prevPomodoroTime = parsedPomodoroTime;
         }
-    }, [selectedMode, isRunning]);
+      }
+    };
+  
+    handleCookieChange();
+      const intervalId = setInterval(handleCookieChange, 1000);
+      return () => clearInterval(intervalId);
+  }, []);
+  
+  
+  
+  
+
+  useEffect(() => {
+    if (selectedMode && !isRunning) {
+      const { time, color, boxColor } = modeOptions[selectedMode];
+      setDefaultTime(time * 60); 
+      setTime(time * 60);
+      setBackgroundColor(color);
+    }
+  }, [selectedMode, isRunning]);
 
     useEffect(() => {
         if (time <= 0 && isRunning) {
@@ -59,7 +83,7 @@ function Timer() {
     };
 
     const handleTimerEnd = () => {
-        if (selectedMode === 'Pomodoro' && counter <4) {
+        if (selectedMode === 'Pomodoro' && counter < 4) {
             setSelectedMode('ShortBreak');
         } else if (selectedMode === 'ShortBreak' && counter < 4) {
             setCounter(prevCounter => prevCounter + 1);
@@ -67,9 +91,9 @@ function Timer() {
         } else if (selectedMode === 'Pomodoro' && counter === 4) {
             setSelectedMode('LongBreak');
         }
-        else if(selectedMode === 'LongBreak'){
+        else if (selectedMode === 'LongBreak') {
             setSelectedMode('Pomodoro');
-            setCounter(1); 
+            setCounter(1);
         }
         setIsRunning(false);
         console.log(counter);
@@ -85,9 +109,9 @@ function Timer() {
     return (
         <div className="box">
             <div className="topButtons">
-            <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
-<button className={`button ${selectedMode === "ShortBreak" ? "selected" : ""}`} onClick={() => selectMode("ShortBreak")}>Short Break</button>
-<button className={`button ${selectedMode === "LongBreak" ? "selected" : ""}`} onClick={() => selectMode("LongBreak")}>Long Break</button>
+                <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
+                <button className={`button ${selectedMode === "ShortBreak" ? "selected" : ""}`} onClick={() => selectMode("ShortBreak")}>Short Break</button>
+                <button className={`button ${selectedMode === "LongBreak" ? "selected" : ""}`} onClick={() => selectMode("LongBreak")}>Long Break</button>
 
             </div>
             <div className="buttomButtons">
