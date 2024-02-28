@@ -98,6 +98,7 @@ function Settings({ onClose }) {
             className="minutes"
             value={pomodoroTime.minutes}
             onChange={handlePomodoroMinutesChange}
+            min={0}
           />
           <label htmlFor="pomodoro-seconds">Seconds:</label>
           <input
@@ -107,6 +108,7 @@ function Settings({ onClose }) {
             className="seconds"
             value={pomodoroTime.seconds}
             onChange={handlePomodoroSecondsChange}
+            min={0}
           />
         </div>
         <div>
@@ -119,6 +121,7 @@ function Settings({ onClose }) {
             className="minutes"
             value={shortBreakTime.minutes}
             onChange={handleShortBreakMinutesChange}
+            min={0}
           />
           <label htmlFor="shortbreak-seconds">Seconds:</label>
           <input
@@ -128,6 +131,7 @@ function Settings({ onClose }) {
             className="seconds"
             value={shortBreakTime.seconds}
             onChange={handleShortBreakSecondsChange}
+            min={0}
           />
         </div>
         <div>
@@ -140,6 +144,7 @@ function Settings({ onClose }) {
             className="minutes"
             value={longBreakTime.minutes}
             onChange={handleLongBreakMinutesChange}
+            min={0}
           />
           <label htmlFor="longbreak-seconds">Seconds:</label>
           <input
@@ -149,6 +154,7 @@ function Settings({ onClose }) {
             className="seconds"
             value={longBreakTime.seconds}
             onChange={handleLongBreakSecondsChange}
+            min={0}
           />
         </div>
         <button type="submit">Ok</button>
