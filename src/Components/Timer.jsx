@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-
 function Timer() {
 
   const [defaultPomodoroTime, setDefaultPomodoroTime] = useState({ minutes: 25, seconds: 0 });
@@ -13,6 +12,7 @@ function Timer() {
   const [backgroundColor, setBackgroundColor] = useState("");
   const [counter, setCounter] = useState(1);
 
+  const [alarmSound] = useState(new Audio('sound/alarm.mp3'));
   const modeOptions = {
     Pomodoro: { time: defaultPomodoroTime, color: "#f55549", boxColor: "#a11b0e" },
     ShortBreak: { time: shortBreak, color: "#496df2", boxColor: "#0e31a1" },
@@ -83,6 +83,7 @@ function Timer() {
         setTime(prevTime => {
           if (prevTime.minutes === 0 && prevTime.seconds === 0) {
             clearInterval(intervalId);
+            handleTimerEnd();
             return prevTime;
           }
           if (prevTime.seconds === 0) {
@@ -135,6 +136,7 @@ function Timer() {
       setCounter(1);
     }
     setIsRunning(false);
+    playAlarm();
   };
 
   const minutes = time.minutes;
@@ -152,7 +154,9 @@ function Timer() {
       document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Go Outside :D`;
     }
   }, [time]);
-
+  const playAlarm = () =>{
+    alarmSound.play();
+  }
   return (
     <div className="box">
       <div className="topButtons">
