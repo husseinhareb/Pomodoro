@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function Timer() {
+
   const [defaultPomodoroTime, setDefaultPomodoroTime] = useState({ minutes: 25, seconds: 0 });
+  const [shortBreak, setShortBreak] = useState({ minutes: 5, seconds: 0 });
+  const [longBreak, setLongBreak] = useState({ minutes: 15, seconds: 0 });
+  
   const [time, setTime] = useState(defaultPomodoroTime);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedMode, setSelectedMode] = useState("Pomodoro");
   const [backgroundColor, setBackgroundColor] = useState("");
   const [counter, setCounter] = useState(1);
-  const [shortBreak, setShortBreak] = useState({ minutes: 5, seconds: 0 });
-  const [longBreak, setLongBreak] = useState({ minutes: 15, seconds: 0 });
+
   const modeOptions = {
     Pomodoro: { time: defaultPomodoroTime, color: "#f55549", boxColor: "#a11b0e" },
     ShortBreak: { time: shortBreak, color: "#496df2", boxColor: "#0e31a1" },
@@ -30,6 +33,7 @@ function Timer() {
         const parsedPomodoroTime = JSON.parse(pomodoroTimeCookie);
         if (JSON.stringify(parsedPomodoroTime) !== JSON.stringify(prevPomodoroTime)) {
           setDefaultPomodoroTime(parsedPomodoroTime);
+          setTime(parsedPomodoroTime);
           prevPomodoroTime = parsedPomodoroTime;
         }
       }
@@ -38,6 +42,7 @@ function Timer() {
         const parsedShortBreakTime = JSON.parse(shortBreakTimeCookie);
         if (JSON.stringify(parsedShortBreakTime) !== JSON.stringify(prevShortBreakTime)) {
           setShortBreak(parsedShortBreakTime);
+          setTime(parsedShortBreakTime);
           prevShortBreakTime = parsedShortBreakTime;
         }
       }
@@ -46,6 +51,7 @@ function Timer() {
         const parsedLongBreakTime = JSON.parse(longBreakTimeCookie);
         if (JSON.stringify(parsedLongBreakTime) !== JSON.stringify(prevLongBreakTime)) {
           setLongBreak(parsedLongBreakTime);
+          setTime(parsedLongBreakTime);
           prevLongBreakTime = parsedLongBreakTime;
         }
       }
@@ -72,13 +78,24 @@ function Timer() {
   }, [time, isRunning, selectedMode]);
 
   useEffect(() => {
-    if (isRunning && time > 0) {
+    if (isRunning) {
       const intervalId = setInterval(() => {
-        setTime(prevTime => ({ minutes: prevTime.minutes, seconds: prevTime.seconds - 1 }));
+        setTime(prevTime => {
+          if (prevTime.minutes === 0 && prevTime.seconds === 0) {
+            clearInterval(intervalId);
+            return prevTime;
+          }
+          if (prevTime.seconds === 0) {
+            return { minutes: prevTime.minutes - 1, seconds: 59 };
+          } else {
+            return { ...prevTime, seconds: prevTime.seconds - 1 };
+          }
+        });
       }, 1000);
       return () => clearInterval(intervalId);
     }
-  }, [time, isRunning]);
+  }, [isRunning]);
+  
 
   useEffect(() => {
     document.body.style.backgroundColor = backgroundColor;
@@ -90,7 +107,12 @@ function Timer() {
   };
 
   const startTimer = () => {
-    setIsRunning(true);
+    if(isRunning){
+      setIsRunning(false);
+    }
+    else{
+      setIsRunning(true);
+    }
   };
 
   const resetTimer = () => {
@@ -119,7 +141,16 @@ function Timer() {
   const seconds = time.seconds;
 
   useEffect(() => {
-    document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    if(selectedMode === 'Pomodoro'){
+    document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Focus! :|`;
+    }
+    else if(selectedMode === 'ShortBreak'){
+      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Short Break! :)`;
+
+    }
+    else if(selectedMode === 'LongBreak'){
+      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Go Outside :D`;
+    }
   }, [time]);
 
   return (

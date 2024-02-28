@@ -82,6 +82,7 @@ function Settings({ onClose }) {
 
   return (
     <div className="settings-window">
+      <h1>Settings</h1>
       <button onClick={handleClose} className="closeSettings">
         X
       </button>
