@@ -17,23 +17,23 @@ function Timer() {
   };
 
   useEffect(() => {
-    const pomodoroTimeCookie = Cookies.get("pomodoroTime");
-
-  }, []);
-
-  useEffect(() => {
+    let prevPomodoroTime = null;
     let prevShortBreakTime = null;
     let prevLongBreakTime = null;
-
+  
     const handleCookieChange = () => {
       const pomodoroTimeCookie = Cookies.get("pomodoroTime");
       const shortBreakTimeCookie = Cookies.get("shortBreakTime");
       const longBreakTimeCookie = Cookies.get("longBreakTime");
-
+  
       if (pomodoroTimeCookie) {
-        setDefaultPomodoroTime(JSON.parse(pomodoroTimeCookie));
+        const parsedPomodoroTime = JSON.parse(pomodoroTimeCookie);
+        if (JSON.stringify(parsedPomodoroTime) !== JSON.stringify(prevPomodoroTime)) {
+          setDefaultPomodoroTime(parsedPomodoroTime);
+          prevPomodoroTime = parsedPomodoroTime;
+        }
       }
-      
+  
       if (shortBreakTimeCookie) {
         const parsedShortBreakTime = JSON.parse(shortBreakTimeCookie);
         if (JSON.stringify(parsedShortBreakTime) !== JSON.stringify(prevShortBreakTime)) {
@@ -41,7 +41,7 @@ function Timer() {
           prevShortBreakTime = parsedShortBreakTime;
         }
       }
-
+  
       if (longBreakTimeCookie) {
         const parsedLongBreakTime = JSON.parse(longBreakTimeCookie);
         if (JSON.stringify(parsedLongBreakTime) !== JSON.stringify(prevLongBreakTime)) {
@@ -50,11 +50,12 @@ function Timer() {
         }
       }
     };
-
+  
     handleCookieChange();
     const intervalId = setInterval(handleCookieChange, 1000);
     return () => clearInterval(intervalId);
   }, []);
+  
 
   useEffect(() => {
     if (selectedMode && !isRunning) {
