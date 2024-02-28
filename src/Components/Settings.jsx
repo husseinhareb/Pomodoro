@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function Settings({ onClose }) {
   const [pomodoroTime, setPomodoroTime] = useState({ minutes: 25, seconds: 0 });
   const [shortBreakTime, setShortBreakTime] = useState({ minutes: 5, seconds: 0 });
   const [longBreakTime, setLongBreakTime] = useState({ minutes: 15, seconds: 0 });
+
+  useEffect(() => {
+    const readCookieValues = () => {
+      const pomodoroTimeCookie = Cookies.get("pomodoroTime");
+      const shortBreakTimeCookie = Cookies.get("shortBreakTime");
+      const longBreakTimeCookie = Cookies.get("longBreakTime");
+
+      if (pomodoroTimeCookie) {
+        setPomodoroTime(JSON.parse(pomodoroTimeCookie));
+      }
+      if (shortBreakTimeCookie) {
+        setShortBreakTime(JSON.parse(shortBreakTimeCookie));
+      }
+      if (longBreakTimeCookie) {
+        setLongBreakTime(JSON.parse(longBreakTimeCookie));
+      }
+    };
+
+    readCookieValues();
+  }, []);
 
   const handleClose = () => {
     onClose({ pomodoroTime, shortBreakTime, longBreakTime });

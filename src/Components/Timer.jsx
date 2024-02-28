@@ -2,23 +2,26 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 function Timer() {
-  const [defaultTime, setDefaultTime] = useState();
-  const [time, setTime] = useState(defaultTime);
+  const [defaultPomodoroTime, setDefaultPomodoroTime] = useState({ minutes: 25, seconds: 0 });
+  const [time, setTime] = useState(defaultPomodoroTime);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedMode, setSelectedMode] = useState("Pomodoro");
   const [backgroundColor, setBackgroundColor] = useState("");
   const [counter, setCounter] = useState(1);
   const [shortBreak, setShortBreak] = useState({ minutes: 5, seconds: 0 });
   const [longBreak, setLongBreak] = useState({ minutes: 15, seconds: 0 });
-
   const modeOptions = {
-    Pomodoro: { time: 25, color: "#f55549", boxColor: "#a11b0e" },
-    ShortBreak: { time: shortBreak.minutes, color: "#496df2", boxColor: "#0e31a1" },
-    LongBreak: { time: longBreak.minutes, color: "#3da10e", boxColor: "#1ee60b" }
+    Pomodoro: { time: defaultPomodoroTime, color: "#f55549", boxColor: "#a11b0e" },
+    ShortBreak: { time: shortBreak, color: "#496df2", boxColor: "#0e31a1" },
+    LongBreak: { time: longBreak, color: "#3da10e", boxColor: "#1ee60b" }
   };
 
   useEffect(() => {
-    let prevPomodoroTime = null;
+    const pomodoroTimeCookie = Cookies.get("pomodoroTime");
+
+  }, []);
+
+  useEffect(() => {
     let prevShortBreakTime = null;
     let prevLongBreakTime = null;
 
@@ -28,14 +31,9 @@ function Timer() {
       const longBreakTimeCookie = Cookies.get("longBreakTime");
 
       if (pomodoroTimeCookie) {
-        const parsedPomodoroTime = JSON.parse(pomodoroTimeCookie);
-        if (JSON.stringify(parsedPomodoroTime) !== JSON.stringify(prevPomodoroTime)) {
-          setDefaultTime(parsedPomodoroTime.minutes * 60 + parsedPomodoroTime.seconds);
-          setTime(parsedPomodoroTime.minutes * 60 + parsedPomodoroTime.seconds);
-          prevPomodoroTime = parsedPomodoroTime;
-        }
+        setDefaultPomodoroTime(JSON.parse(pomodoroTimeCookie));
       }
-
+      
       if (shortBreakTimeCookie) {
         const parsedShortBreakTime = JSON.parse(shortBreakTimeCookie);
         if (JSON.stringify(parsedShortBreakTime) !== JSON.stringify(prevShortBreakTime)) {
@@ -61,10 +59,10 @@ function Timer() {
   useEffect(() => {
     if (selectedMode && !isRunning) {
       const { time, color, boxColor } = modeOptions[selectedMode];
-      setTime(time * 60);
+      setTime(time);
       setBackgroundColor(color);
     }
-  }, [selectedMode, isRunning, shortBreak, longBreak]);
+  }, [selectedMode, isRunning, shortBreak, longBreak, defaultPomodoroTime]);
 
   useEffect(() => {
     if (time <= 0 && isRunning) {
@@ -75,7 +73,7 @@ function Timer() {
   useEffect(() => {
     if (isRunning && time > 0) {
       const intervalId = setInterval(() => {
-        setTime(prevTime => prevTime - 1);
+        setTime(prevTime => ({ minutes: prevTime.minutes, seconds: prevTime.seconds - 1 }));
       }, 1000);
       return () => clearInterval(intervalId);
     }
@@ -116,8 +114,8 @@ function Timer() {
     setIsRunning(false);
   };
 
-  const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
+  const minutes = time.minutes;
+  const seconds = time.seconds;
 
   useEffect(() => {
     document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
