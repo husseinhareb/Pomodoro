@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-function Timer() {
+function Timer({onSelectMode}) {
 
   const [defaultPomodoroTime, setDefaultPomodoroTime] = useState({ minutes: 25, seconds: 0 });
   const [shortBreak, setShortBreak] = useState({ minutes: 5, seconds: 0 });
   const [longBreak, setLongBreak] = useState({ minutes: 15, seconds: 0 });
-
   const [time, setTime] = useState(defaultPomodoroTime);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedMode, setSelectedMode] = useState("Pomodoro");
-  const [backgroundColor, setBackgroundColor] = useState("");
+  const [boxColor, setBoxColor] = useState("");
   const [counter, setCounter] = useState(1);
-
+  const [backgroundColor, setBackgroundColor] = useState("");
   const [alarmSound] = useState(new Audio('sounds/alarm.mp3'));
   const modeOptions = {
-    Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", boxColor: "#a11b0e" },
+    Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", boxColor: "#C15C5C" },
     ShortBreak: { time: shortBreak, color: "#428455", boxColor: "#0e31a1" },
     LongBreak: { time: longBreak, color: "#854284", boxColor: "#1ee60b" }
   };
-
   useEffect(() => {
     let prevPomodoroTime = null;
     let prevShortBreakTime = null;
@@ -62,15 +60,13 @@ function Timer() {
     return () => clearInterval(intervalId);
   }, []);
 
-
   useEffect(() => {
     if (selectedMode && !isRunning) {
-      const { time, color, boxColor } = modeOptions[selectedMode];
+      const { time, boxColor } = modeOptions[selectedMode];
       setTime(time);
-      setBackgroundColor(color);
+      setBoxColor(boxColor);
     }
   }, [selectedMode, isRunning, shortBreak, longBreak, defaultPomodoroTime]);
-
   useEffect(() => {
     if (time <= 0 && isRunning) {
       handleTimerEnd();
@@ -103,9 +99,11 @@ function Timer() {
   }, [backgroundColor]);
 
   const selectMode = (mode) => {
-    setSelectedMode(mode);
+    setSelectedMode(mode); // Update the local state
     setIsRunning(false);
+    onSelectMode(mode); // Call the callback function with the updated mode
   };
+  
 
   const startTimer = () => {
     if (isRunning) {
@@ -175,13 +173,12 @@ function Timer() {
 
 
   return (
-    <div className="box">
-      <div className="topButtons">
-        <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
-        <button className={`button ${selectedMode === "ShortBreak" ? "selected" : ""}`} onClick={() => selectMode("ShortBreak")}>Short Break</button>
-        <button className={`button ${selectedMode === "LongBreak" ? "selected" : ""}`} onClick={() => selectMode("LongBreak")}>Long Break</button>
+    <div className="box" style={{ backgroundColor: boxColor }}>      <div className="topButtons">
+      <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
+      <button className={`button ${selectedMode === "ShortBreak" ? "selected" : ""}`} onClick={() => selectMode("ShortBreak")}>Short Break</button>
+      <button className={`button ${selectedMode === "LongBreak" ? "selected" : ""}`} onClick={() => selectMode("LongBreak")}>Long Break</button>
 
-      </div>
+    </div>
       <div className="buttomButtons">
         <span>
           <div className="countdown">{minutes}:</div>
