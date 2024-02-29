@@ -14,7 +14,7 @@ function Timer() {
 
   const [alarmSound] = useState(new Audio('sound/alarm.mp3'));
   const modeOptions = {
-    Pomodoro: { time: defaultPomodoroTime, color: "#f55549", boxColor: "#a11b0e" },
+    Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", boxColor: "#a11b0e" },
     ShortBreak: { time: shortBreak, color: "#496df2", boxColor: "#0e31a1" },
     LongBreak: { time: longBreak, color: "#3da10e", boxColor: "#1ee60b" }
   };
@@ -181,9 +181,9 @@ function Timer() {
             RESET
           </button>
         </span>
-        <span>
+        <div>
           <button onClick={handleTimerEnd}>Skip</button>
-        </span>
+        </div>
       </div>
     </div>
   );

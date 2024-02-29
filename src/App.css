@@ -22,10 +22,10 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 280px;
+    height: 300px;
     width: 500px;
     margin: 10% auto 0; 
-    border-radius: 12px;
+    border-radius: 6px;
 }
 
 
@@ -104,7 +104,6 @@ span {
     align-items: center;
 }
 
-/* Add this CSS to your stylesheet or component */
 .button {
     background-color: transparent;
     border: none;
@@ -114,6 +113,7 @@ span {
     margin: 0 5px;
     color: #ffffff;
     font-size: 16px;
+    border-radius: 8px;
   }
   
   .selected {
@@ -121,3 +121,57 @@ span {
     color: #000000; /* Change this to your desired text color */
   }
   
+  
+
+
+
+.start, .reset {
+  appearance: button;
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #EBEBEB;
+  border-radius: 4px;
+  box-shadow: #EBEBEB 4px 4px 0 0,#EBEBEB 4px 4px 0 1px;
+  box-sizing: border-box;
+  color: #C15C5C;
+  cursor: pointer;
+  display: inline-block;
+  font-family: ITCAvantGardeStd-Bk,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 20px;
+  margin: 0 5px 10px 0;
+  overflow: visible;
+  padding: 12px 40px;
+  text-align: center;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.start:focus, .reset:focus {
+  text-decoration: none;
+}
+
+.start:hover,  .reset:hover{
+  text-decoration: none;
+}
+
+.start:active, .reset:active {
+  box-shadow: #EBEBEB 0 3px 5px inset;
+  outline: 0;
+}
+
+.start:not([disabled]):active, .reset:not([disabled]):active     {
+  box-shadow: #fff 2px 2px 0 0, #EBEBEB 2px 2px 0 1px;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .start, .reset {
+    padding: 12px 50px;
+  }
+}
