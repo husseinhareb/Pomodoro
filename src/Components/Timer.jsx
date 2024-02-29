@@ -5,30 +5,30 @@ function Timer() {
   const [defaultPomodoroTime, setDefaultPomodoroTime] = useState({ minutes: 25, seconds: 0 });
   const [shortBreak, setShortBreak] = useState({ minutes: 5, seconds: 0 });
   const [longBreak, setLongBreak] = useState({ minutes: 15, seconds: 0 });
-  
+
   const [time, setTime] = useState(defaultPomodoroTime);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedMode, setSelectedMode] = useState("Pomodoro");
   const [backgroundColor, setBackgroundColor] = useState("");
   const [counter, setCounter] = useState(1);
 
-  const [alarmSound] = useState(new Audio('sound/alarm.mp3'));
+  const [alarmSound] = useState(new Audio('sounds/alarm.mp3'));
   const modeOptions = {
     Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", boxColor: "#a11b0e" },
-    ShortBreak: { time: shortBreak, color: "#496df2", boxColor: "#0e31a1" },
-    LongBreak: { time: longBreak, color: "#3da10e", boxColor: "#1ee60b" }
+    ShortBreak: { time: shortBreak, color: "#428455", boxColor: "#0e31a1" },
+    LongBreak: { time: longBreak, color: "#854284", boxColor: "#1ee60b" }
   };
 
   useEffect(() => {
     let prevPomodoroTime = null;
     let prevShortBreakTime = null;
     let prevLongBreakTime = null;
-  
+
     const handleCookieChange = () => {
       const pomodoroTimeCookie = Cookies.get("pomodoroTime");
       const shortBreakTimeCookie = Cookies.get("shortBreakTime");
       const longBreakTimeCookie = Cookies.get("longBreakTime");
-  
+
       if (pomodoroTimeCookie) {
         const parsedPomodoroTime = JSON.parse(pomodoroTimeCookie);
         if (JSON.stringify(parsedPomodoroTime) !== JSON.stringify(prevPomodoroTime)) {
@@ -37,7 +37,7 @@ function Timer() {
           prevPomodoroTime = parsedPomodoroTime;
         }
       }
-  
+
       if (shortBreakTimeCookie) {
         const parsedShortBreakTime = JSON.parse(shortBreakTimeCookie);
         if (JSON.stringify(parsedShortBreakTime) !== JSON.stringify(prevShortBreakTime)) {
@@ -46,7 +46,7 @@ function Timer() {
           prevShortBreakTime = parsedShortBreakTime;
         }
       }
-  
+
       if (longBreakTimeCookie) {
         const parsedLongBreakTime = JSON.parse(longBreakTimeCookie);
         if (JSON.stringify(parsedLongBreakTime) !== JSON.stringify(prevLongBreakTime)) {
@@ -56,12 +56,12 @@ function Timer() {
         }
       }
     };
-  
+
     handleCookieChange();
     const intervalId = setInterval(handleCookieChange, 1000);
     return () => clearInterval(intervalId);
   }, []);
-  
+
 
   useEffect(() => {
     if (selectedMode && !isRunning) {
@@ -96,7 +96,7 @@ function Timer() {
       return () => clearInterval(intervalId);
     }
   }, [isRunning]);
-  
+
 
   useEffect(() => {
     document.body.style.backgroundColor = backgroundColor;
@@ -108,10 +108,10 @@ function Timer() {
   };
 
   const startTimer = () => {
-    if(isRunning){
+    if (isRunning) {
       setIsRunning(false);
     }
-    else{
+    else {
       setIsRunning(true);
     }
   };
@@ -143,20 +143,37 @@ function Timer() {
   const seconds = time.seconds;
 
   useEffect(() => {
-    if(selectedMode === 'Pomodoro'){
-    document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Focus! :|`;
+    if (selectedMode === 'Pomodoro') {
+      setFavicon('icons/pomodoroTitle.svg');
+      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} - Focus! :|`;
     }
-    else if(selectedMode === 'ShortBreak'){
-      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Short Break! :)`;
-
+    else if (selectedMode === 'ShortBreak') {
+      setFavicon('icons/shortBreakIco.svg');
+      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} - Short Break! :)`;
     }
-    else if(selectedMode === 'LongBreak'){
-      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} Go Outside :D`;
+    else if (selectedMode === 'LongBreak') {
+      setFavicon('icons/longBreakIco.svg');
+      document.title = `${minutes}:${seconds < 10 ? "0" : ""}${seconds} - Go Outside :D`;
     }
   }, [time]);
-  const playAlarm = () =>{
+
+  const playAlarm = () => {
     alarmSound.play();
   }
+
+  function setFavicon(url) {
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon !== null) {
+      favicon.href = url;
+    } else {
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.href = url;
+      document.head.appendChild(link);
+    }
+  }
+
+
   return (
     <div className="box">
       <div className="topButtons">

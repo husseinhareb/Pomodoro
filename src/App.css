@@ -1,6 +1,7 @@
-body{
+body {
     background-color: #BA4949;
 }
+
 .navbar {
     background-color: #333;
     color: #fff;
@@ -10,11 +11,11 @@ body{
 ul {
     list-style: none;
     display: flex;
-    padding: 0; 
+    padding: 0;
 }
 
 li {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .pomodoroBox {
@@ -24,12 +25,12 @@ li {
     justify-content: center;
     height: 300px;
     width: 500px;
-    margin: 10% auto 0; 
+    margin: 10% auto 0;
     border-radius: 6px;
 }
 
 
-.countdown{
+.countdown {
     font-family: 'Valera Round', sans-serif;
     font-size: 120px;
     color: white;
@@ -37,10 +38,11 @@ li {
     letter-spacing: 4px;
 }
 
-.start,.reset{
+.start,
+.reset {
     width: 140px;
     height: 50px;
-    color: #C15C5C; 
+    color: #C15C5C;
     font-family: 'Valera Round', sans-serif;
     font-weight: 1000;
     margin-right: 10px;
@@ -50,7 +52,8 @@ li {
 
 }
 
-.addMinute,.addSecond{
+.addMinute,
+.addSecond {
     width: 150px;
     height: 40px;
     border: 0px;
@@ -63,13 +66,13 @@ span {
 }
 
 
-.buttomButtons{
+.buttomButtons {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.settingsButton{
+.settingsButton {
     background-color: #C15C5C;
     border: 0px;
     border-radius: 4px;
@@ -78,21 +81,21 @@ span {
 
 .settings-window {
     position: fixed;
-    top: 50%; 
+    top: 50%;
     left: 50%;
     width: 300px;
-    height: 800px; 
+    height: 800px;
     color: black;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 9999; 
+    z-index: 9999;
     border-radius: 8px;
-  }
-  
-  .closeSettings{
+}
+
+.closeSettings {
     border: 0px;
     position: fixed;
     right: 10px
@@ -114,64 +117,71 @@ span {
     color: #ffffff;
     font-size: 16px;
     border-radius: 8px;
-  }
-  
-  .selected {
-    background-color: #ffffff; /* Change this to your desired color */
-    color: #000000; /* Change this to your desired text color */
-  }
-  
-  
-
-
-
-.start, .reset {
-  appearance: button;
-  background-color: #FFFFFF;
-  background-image: none;
-  border: 1px solid #EBEBEB;
-  border-radius: 4px;
-  box-shadow: #EBEBEB 4px 4px 0 0,#EBEBEB 4px 4px 0 1px;
-  box-sizing: border-box;
-  color: #C15C5C;
-  cursor: pointer;
-  display: inline-block;
-  font-family: ITCAvantGardeStd-Bk,Arial,sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 20px;
-  margin: 0 5px 10px 0;
-  overflow: visible;
-  padding: 12px 40px;
-  text-align: center;
-  text-transform: none;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 
-.start:focus, .reset:focus {
-  text-decoration: none;
+.selected {
+    background-color: #ffffff;
+    color: #000000;
 }
 
-.start:hover,  .reset:hover{
-  text-decoration: none;
+
+
+
+
+.start,
+.reset {
+    appearance: button;
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #EBEBEB;
+    border-radius: 4px;
+    box-shadow: #EBEBEB 4px 4px 0 0, #EBEBEB 4px 4px 0 1px;
+    box-sizing: border-box;
+    color: #C15C5C;
+    cursor: pointer;
+    display: inline-block;
+    font-family: ITCAvantGardeStd-Bk, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 20px;
+    margin: 0 5px 10px 0;
+    overflow: visible;
+    padding: 12px 40px;
+    text-align: center;
+    text-transform: none;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
-.start:active, .reset:active {
-  box-shadow: #EBEBEB 0 3px 5px inset;
-  outline: 0;
+.start:focus,
+.reset:focus {
+    text-decoration: none;
 }
 
-.start:not([disabled]):active, .reset:not([disabled]):active     {
-  box-shadow: #fff 2px 2px 0 0, #EBEBEB 2px 2px 0 1px;
-  transform: translate(2px, 2px);
+.start:hover,
+.reset:hover {
+    text-decoration: none;
+}
+
+.start:active,
+.reset:active {
+    box-shadow: #EBEBEB 0 3px 5px inset;
+    outline: 0;
+}
+
+.start:not([disabled]):active,
+.reset:not([disabled]):active {
+    box-shadow: #fff 2px 2px 0 0, #EBEBEB 2px 2px 0 1px;
+    transform: translate(2px, 2px);
 }
 
 @media (min-width: 768px) {
-  .start, .reset {
-    padding: 12px 50px;
-  }
+
+    .start,
+    .reset {
+        padding: 12px 50px;
+    }
 }
