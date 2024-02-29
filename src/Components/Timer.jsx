@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-function Timer({onSelectMode}) {
+function Timer({ onSelectMode }) {
 
   const [defaultPomodoroTime, setDefaultPomodoroTime] = useState({ minutes: 25, seconds: 0 });
   const [shortBreak, setShortBreak] = useState({ minutes: 5, seconds: 0 });
@@ -14,8 +14,8 @@ function Timer({onSelectMode}) {
   const [alarmSound] = useState(new Audio('sounds/alarm.mp3'));
   const modeOptions = {
     Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", boxColor: "#C15C5C" },
-    ShortBreak: { time: shortBreak, color: "#428455", boxColor: "#0e31a1" },
-    LongBreak: { time: longBreak, color: "#854284", boxColor: "#1ee60b" }
+    ShortBreak: { time: shortBreak, color: "#428455", boxColor: "#6fa67f" },
+    LongBreak: { time: longBreak, color: "#854284", boxColor: "#c482c3" }
   };
   useEffect(() => {
     let prevPomodoroTime = null;
@@ -99,11 +99,12 @@ function Timer({onSelectMode}) {
   }, [backgroundColor]);
 
   const selectMode = (mode) => {
-    setSelectedMode(mode); // Update the local state
+    setSelectedMode(mode);
     setIsRunning(false);
-    onSelectMode(mode); // Call the callback function with the updated mode
+    onSelectMode(mode);
+    setBackgroundColor(modeOptions[mode].color);
   };
-  
+
 
   const startTimer = () => {
     if (isRunning) {
@@ -113,29 +114,32 @@ function Timer({onSelectMode}) {
       setIsRunning(true);
     }
   };
-
-  const resetTimer = () => {
-    const { time, color } = modeOptions[selectedMode];
+  const handleModeChange = (mode) => {
+    setSelectedMode(mode);
+    onSelectMode(mode);
+    const { time, color } = modeOptions[mode];
     setTime(time);
-    setIsRunning(false);
     setBackgroundColor(color);
   };
 
+  const resetTimer = () => {
+    handleModeChange(selectedMode);
+    setIsRunning(false);
+  };
+
   const handleTimerEnd = () => {
-    if (selectedMode === 'Pomodoro' && counter < 4) {
-      setSelectedMode('ShortBreak');
-    } else if (selectedMode === 'ShortBreak' && counter < 4) {
-      setCounter(prevCounter => prevCounter + 1);
-      setSelectedMode('Pomodoro');
-    } else if (selectedMode === 'Pomodoro' && counter === 4) {
-      setSelectedMode('LongBreak');
-    } else if (selectedMode === 'LongBreak') {
-      setSelectedMode('Pomodoro');
+    let nextMode = selectedMode === 'Pomodoro' ? 'ShortBreak' : 'Pomodoro';
+    if (selectedMode === 'ShortBreak' && counter === 4) {
+      nextMode = 'LongBreak';
+    }
+    handleModeChange(nextMode);
+    if (nextMode === 'Pomodoro') {
       setCounter(1);
     }
     setIsRunning(false);
     playAlarm();
   };
+
 
   const minutes = time.minutes;
   const seconds = time.seconds;
