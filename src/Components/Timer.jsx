@@ -128,19 +128,28 @@ function Timer({ onSelectMode }) {
   };
 
   const handleTimerEnd = () => {
-    let nextMode = selectedMode === 'Pomodoro' ? 'ShortBreak' : 'Pomodoro';
-    if (selectedMode === 'ShortBreak' && counter === 4) {
-      nextMode = 'LongBreak';
-    }
-    handleModeChange(nextMode);
-    if (nextMode === 'Pomodoro') {
-      setCounter(1);
-    }
-    setIsRunning(false);
+    handleTimerSkip();
     playAlarm();
   };
 
-
+  const handleTimerSkip = () => {
+    if (selectedMode === 'Pomodoro' && counter < 4) {
+      setSelectedMode('ShortBreak');
+      handleModeChange('ShortBreak');
+    } else if (selectedMode === 'ShortBreak' && counter < 4) {
+      setCounter(prevCounter => prevCounter + 1);
+      setSelectedMode('Pomodoro');
+      handleModeChange('Pomodoro')
+    } else if (selectedMode === 'Pomodoro' && counter === 4) {
+      setSelectedMode('LongBreak');
+      handleModeChange('LongBreak');
+    } else if (selectedMode === 'LongBreak') {
+      setSelectedMode('Pomodoro');
+      handleModeChange('Pomodoro');
+      setCounter(1);
+    }
+    setIsRunning(false);
+  };
   const minutes = time.minutes;
   const seconds = time.seconds;
 
@@ -200,7 +209,7 @@ function Timer({ onSelectMode }) {
           </button>
         </span>
         <div>
-          <button onClick={handleTimerEnd}>Skip</button>
+          <button onClick={handleTimerSkip}>Skip</button>
         </div>
       </div>
     </div>
