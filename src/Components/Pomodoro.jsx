@@ -18,7 +18,7 @@ function Pomodoro() {
     }
 
     return (
-        <div className='pomodoroBox' style={{backgroundColor: backgroundColor}}>
+        <div className='pomodoroBox' style={{ backgroundColor: backgroundColor, transition: 'background-color 0.7s ease-in-out' }}>
             <Timer onSelectMode={handleSelectedModeChange} />
         </div>
     );

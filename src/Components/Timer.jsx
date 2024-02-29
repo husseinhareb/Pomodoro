@@ -9,13 +9,14 @@ function Timer({ onSelectMode }) {
   const [isRunning, setIsRunning] = useState(false);
   const [selectedMode, setSelectedMode] = useState("Pomodoro");
   const [boxColor, setBoxColor] = useState("");
+  const [btnColor, setBtnColor] = useState("");
   const [counter, setCounter] = useState(1);
   const [backgroundColor, setBackgroundColor] = useState("");
   const [alarmSound] = useState(new Audio('sounds/alarm.mp3'));
   const modeOptions = {
-    Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", boxColor: "#C15C5C" },
-    ShortBreak: { time: shortBreak, color: "#428455", boxColor: "#6fa67f" },
-    LongBreak: { time: longBreak, color: "#854284", boxColor: "#c482c3" }
+    Pomodoro: { time: defaultPomodoroTime, color: "#BA4949", btnColor: "#C15C5C", boxColor: "#C15C5C" },
+    ShortBreak: { time: shortBreak, color: "#428455",btnColor: "#6fa67f", boxColor: "#6fa67f" },
+    LongBreak: { time: longBreak, color: "#854284", btnColor: "#c482c3", boxColor: "#c482c3" }
   };
   useEffect(() => {
     let prevPomodoroTime = null;
@@ -65,6 +66,7 @@ function Timer({ onSelectMode }) {
       const { time, boxColor } = modeOptions[selectedMode];
       setTime(time);
       setBoxColor(boxColor);
+      setBtnColor(btnColor);
     }
   }, [selectedMode, isRunning, shortBreak, longBreak, defaultPomodoroTime]);
   useEffect(() => {
@@ -95,15 +97,20 @@ function Timer({ onSelectMode }) {
 
 
   useEffect(() => {
+    document.body.style.transition = 'background-color 0.7s ease-in-out'; // Define transition for smooth color change
     document.body.style.backgroundColor = backgroundColor;
-  }, [backgroundColor]);
+}, [backgroundColor]);
+
 
   const selectMode = (mode) => {
     setSelectedMode(mode);
     setIsRunning(false);
     onSelectMode(mode);
+    setBoxColor(modeOptions[mode].boxColor);
+    setBtnColor(modeOptions[mode].btnColor); 
     setBackgroundColor(modeOptions[mode].color);
   };
+  
 
 
   const startTimer = () => {
@@ -186,7 +193,8 @@ function Timer({ onSelectMode }) {
 
 
   return (
-    <div className="box" style={{ backgroundColor: boxColor }}>      <div className="topButtons">
+    <div className="box" style={{ backgroundColor: boxColor,transition: 'background-color 0.7s ease-in-out'  }}>     
+    <div className="topButtons">
       <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
       <button className={`button ${selectedMode === "ShortBreak" ? "selected" : ""}`} onClick={() => selectMode("ShortBreak")}>Short Break</button>
       <button className={`button ${selectedMode === "LongBreak" ? "selected" : ""}`} onClick={() => selectMode("LongBreak")}>Long Break</button>
@@ -195,7 +203,7 @@ function Timer({ onSelectMode }) {
       <div className="buttomButtons">
         <span>
           <div className="countdown">{minutes}:</div>
-          <button className="start" onClick={startTimer}>
+          <button className="start" onClick={startTimer} style={{color: btnColor,transition: 'background-color 0.7s ease-in-out' }}>
             {isRunning ? "STOP" : "START"}
           </button>
         </span>
@@ -204,13 +212,11 @@ function Timer({ onSelectMode }) {
             {seconds < 10 ? "0" : ""}
             {seconds}
           </div>
-          <button className="reset" onClick={resetTimer}>
+          <button className="reset" onClick={resetTimer} style={{color: btnColor,transition: 'background-color 0.7s ease-in-out' }}>
             RESET
           </button>
         </span>
-        <div>
-          <button onClick={handleTimerSkip}>Skip</button>
-        </div>
+
       </div>
     </div>
   );
