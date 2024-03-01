@@ -12,7 +12,7 @@ function Clock(){
     const formattedTime = time.toLocaleTimeString();
 
     return (
-        <div>
+        <div className="clock">
             {formattedTime}
         </div>
     )
