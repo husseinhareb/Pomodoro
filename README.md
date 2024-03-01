@@ -55,5 +55,9 @@ Contributions are welcome! If you'd like to contribute:
     Push to the branch: git push origin feature/YourFeature.
     Submit a pull request.
 
-## License
+## Licence
+
+This project is licensed under the [MIT License](https://github.com/husseinhareb/Pomodoro/blob/main/LICENSE).
+
+
 
