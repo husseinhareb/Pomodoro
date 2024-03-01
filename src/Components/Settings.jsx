@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import "../Styles/Settings.css";
+import closeIco from "../assets/icons/closeIco.svg";
+import clockIco from "../assets/icons/clockIco.svg"
 
 function Settings({ onClose }) {
   const [pomodoroTime, setPomodoroTime] = useState({ minutes: 25, seconds: 0 });
@@ -82,15 +85,19 @@ function Settings({ onClose }) {
 
   return (
     <div className="settings-window">
-      <h1>Settings</h1>
+      <h3 className="settingsTitle">Settings</h3>
       <button onClick={handleClose} className="closeSettings">
-        X
+        <img className="closeIco" src={closeIco} alt="Icon" />
+
       </button>
       <hr />
-      <h1>Timer Settings</h1>
+      <h3 className="timerTitle">
+        <img className="clockIco" src={clockIco} alt="Icon" />
+        Timer
+      </h3>
       <form onSubmit={handleSubmit}>
-        <div>
-          <h3>Pomodoro</h3>
+        <div className="input-field">
+          <h4 className="pomodoroTitle">Pomodoro</h4>
           <label htmlFor="pomodoro-minutes">Minutes:</label>
           <input
             type="number"
@@ -112,8 +119,8 @@ function Settings({ onClose }) {
             min={0}
           />
         </div>
-        <div>
-          <h3>Short Break</h3>
+        <div className="input-field">
+          <h4 className="shortTitle">Short Break</h4>
           <label htmlFor="shortbreak-minutes">Minutes:</label>
           <input
             type="number"
@@ -136,7 +143,7 @@ function Settings({ onClose }) {
           />
         </div>
         <div>
-          <h3>Long Break</h3>
+          <h4 className="longTitle">Long Break</h4>
           <label htmlFor="longbreak-minutes">Minutes:</label>
           <input
             type="number"
@@ -158,7 +165,9 @@ function Settings({ onClose }) {
             min={0}
           />
         </div>
+        <div className="submitDiv">
         <button type="submit">Ok</button>
+        </div>
       </form>
     </div>
   );
