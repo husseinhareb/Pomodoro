@@ -10,16 +10,18 @@ function Navbar() {
   };
 
   const handleCloseSettings = () => {
-    setShowSettings(false); // Set showSettings to false to close the settings window
+    setShowSettings(false);
   };
 
   return (
     <nav className="navbar">
-      <ul>
-        <li>Pomodoro</li>
+      <ul className="left-items">
+        <li className="pomodoroName">Pomodoro</li>
         <li>
           <Clock />
         </li>
+      </ul>
+      <ul className="right-items">
         <li>Home</li>
         <li>
           <button onClick={toggleSettings} className="settingsButton">
@@ -27,7 +29,6 @@ function Navbar() {
           </button>
         </li>
       </ul>
-      {showSettings && <Settings onClose={handleCloseSettings} />}
     </nav>
   );
 }
