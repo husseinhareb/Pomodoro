@@ -9,11 +9,11 @@ function Pomodoro() {
         setSelectedMode(mode);
     };
 
-    if(selectedMode === 'Pomodoro') {
+    if (selectedMode === 'Pomodoro') {
         backgroundColor = '#C15C5C';
-    } else if(selectedMode === 'ShortBreak') {
+    } else if (selectedMode === 'ShortBreak') {
         backgroundColor = '#6fa67f';
-    } else if(selectedMode === 'LongBreak') {
+    } else if (selectedMode === 'LongBreak') {
         backgroundColor = '#c482c3';
     }
 
