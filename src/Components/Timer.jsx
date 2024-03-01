@@ -113,14 +113,10 @@ function Timer({ onSelectMode }) {
 
 
 
-  const startTimer = () => {
-    if (isRunning) {
-      setIsRunning(false);
-    }
-    else {
-      setIsRunning(true);
-    }
-  };
+const startTimer = () => {
+  setIsRunning(prevIsRunning => !prevIsRunning);
+};
+
   const handleModeChange = (mode) => {
     setSelectedMode(mode);
     onSelectMode(mode);
@@ -205,9 +201,11 @@ function Timer({ onSelectMode }) {
       </div>
       <div className="buttomButtons">
         <span>
-          <div className="countdown">{minutes}:</div>
+          <div className="countdown">
+            {minutes < 10 ? "0" : ""}
+            {minutes}:</div>
           <button className="start" onClick={startTimer} style={{ color: btnColor, transition: 'background-color 0.7s ease-in-out' }}>
-            {isRunning ? "STOP" : "START"}
+            {isRunning ? "PAUSE" : "START"}
           </button>
         </span>
         <span>
