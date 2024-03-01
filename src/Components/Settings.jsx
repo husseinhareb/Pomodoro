@@ -90,7 +90,7 @@ function Settings({ onClose }) {
         <img className="closeIco" src={closeIco} alt="Icon" />
 
       </button>
-      <hr />
+      <hr className="mainHr"/>
       <h3 className="timerTitle">
         <img className="clockIco" src={clockIco} alt="Icon" />
         Timer
@@ -168,6 +168,7 @@ function Settings({ onClose }) {
         <div className="submitDiv">
         <button type="submit">Ok</button>
         </div>
+        <hr className="Hr" />
       </form>
     </div>
   );
