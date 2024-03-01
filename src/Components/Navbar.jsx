@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Clock from "./Clock";
 import Settings from "./Settings";
+import settingsIco from "../assets/icons/settingsIco.svg";
+import homeIco from "../assets/icons/homeIco.svg";
 
 function Navbar() {
   const [showSettings, setShowSettings] = useState(false);
@@ -22,13 +24,18 @@ function Navbar() {
         </li>
       </ul>
       <ul className="right-items">
-        <li>Home</li>
+        <li>
+          <button className="homeButton">
+            <img className="homeIco" src={homeIco} alt="Icon" /> Home
+          </button>
+        </li>
         <li>
           <button onClick={toggleSettings} className="settingsButton">
-            Settings
+            <img className="settingsIco" src={settingsIco} alt="Icon" /> Settings
           </button>
         </li>
       </ul>
+      {showSettings && <Settings onClose={handleCloseSettings} />}
     </nav>
   );
 }

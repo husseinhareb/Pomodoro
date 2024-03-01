@@ -219,10 +219,6 @@ function Timer({ onSelectMode }) {
             RESET
           </button>
         </span>
-        <button onClick={handleTimerSkip} style={{ padding: 0, border: 'none', background: 'none' }}>
-          <img src="/icons/skipIco.svg" alt="Skip Icon" />
-        </button>
-
       </div>
     </div>
   );
