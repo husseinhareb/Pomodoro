@@ -38,25 +38,31 @@
     cursor: pointer;
 }
 
-.closeIco{
+.closeIco {
     fill: #AAAAAA;
     height: 22px;
 }
-.timerTitle{
+
+.timerTitle {
     justify-content: center;
 }
-.timerTitle, .longTitle, .shortTitle, .pomodoroTitle{
+
+.timerTitle,
+.longTitle,
+.shortTitle,
+.pomodoroTitle {
     color: #AAAAAA;
     display: flex;
     align-items: center;
 }
 
-.clockIco{
+.clockIco {
     margin-right: 2px;
     height: 18px;
 }
 
-.minutes, .seconds{
+.minutes,
+.seconds {
     width: 60px;
     height: 30px;
     padding: 6px;
@@ -67,7 +73,7 @@
     color: #B1B1B1;
 }
 
-.submitDiv{
+.submitDiv {
     background-color: #EFEFEF;
     position: absolute;
     bottom: 0;
@@ -81,7 +87,47 @@
     border-bottom-left-radius: 8px;
 }
 
-.Hr{
+.submitButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 60px;
+    height: 30px;
+    border: 0px;
+    font-size: 15px;
+    background-color: rgb(46, 46, 56);
+    border-radius: 6px;
+    color: #EFEFEF;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submitButton:hover {
+    background-color: rgb(31, 25, 25);
+}
+
+.Hr {
     width: 100%;
     border-top: 1px;
+}
+
+.timer-section {
+    margin-bottom: 20px;
+}
+
+.input-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #626262;
+    font-weight: 500;
+}
+
+.input-field {
+    margin-left: 50px;
+}
+
+.input-field label {
+    display: block;
+    margin-bottom: 5px;
 }

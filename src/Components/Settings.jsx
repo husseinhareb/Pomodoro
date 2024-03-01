@@ -84,20 +84,21 @@ function Settings({ onClose }) {
   };
 
   return (
-    <div className="settings-window">
-      <h3 className="settingsTitle">Settings</h3>
-      <button onClick={handleClose} className="closeSettings">
-        <img className="closeIco" src={closeIco} alt="Icon" />
-
-      </button>
-      <hr className="mainHr"/>
-      <h3 className="timerTitle">
-        <img className="clockIco" src={clockIco} alt="Icon" />
-        Timer
-      </h3>
-      <form onSubmit={handleSubmit}>
+<div className="settings-window">
+  <h3 className="settingsTitle">Settings</h3>
+  <button onClick={handleClose} className="closeSettings">
+    <img className="closeIco" src={closeIco} alt="Icon" />
+  </button>
+  <hr className="mainHr" />
+  <h3 className="timerTitle">
+    <img className="clockIco" src={clockIco} alt="Icon" />
+    Timer
+  </h3>
+  <form onSubmit={handleSubmit}>
+    <div className="timer-section">
+      <h4 className="pomodoroTitle">Pomodoro</h4>
+      <div className="input-row">
         <div className="input-field">
-          <h4 className="pomodoroTitle">Pomodoro</h4>
           <label htmlFor="pomodoro-minutes">Minutes:</label>
           <input
             type="number"
@@ -108,6 +109,8 @@ function Settings({ onClose }) {
             onChange={handlePomodoroMinutesChange}
             min={0}
           />
+        </div>
+        <div className="input-field">
           <label htmlFor="pomodoro-seconds">Seconds:</label>
           <input
             type="number"
@@ -119,8 +122,12 @@ function Settings({ onClose }) {
             min={0}
           />
         </div>
+      </div>
+    </div>
+    <div className="timer-section">
+      <h4 className="shortTitle">Short Break</h4>
+      <div className="input-row">
         <div className="input-field">
-          <h4 className="shortTitle">Short Break</h4>
           <label htmlFor="shortbreak-minutes">Minutes:</label>
           <input
             type="number"
@@ -131,6 +138,8 @@ function Settings({ onClose }) {
             onChange={handleShortBreakMinutesChange}
             min={0}
           />
+        </div>
+        <div className="input-field">
           <label htmlFor="shortbreak-seconds">Seconds:</label>
           <input
             type="number"
@@ -142,8 +151,12 @@ function Settings({ onClose }) {
             min={0}
           />
         </div>
-        <div>
-          <h4 className="longTitle">Long Break</h4>
+      </div>
+    </div>
+    <div className="timer-section">
+      <h4 className="longTitle">Long Break</h4>
+      <div className="input-row">
+        <div className="input-field">
           <label htmlFor="longbreak-minutes">Minutes:</label>
           <input
             type="number"
@@ -154,6 +167,8 @@ function Settings({ onClose }) {
             onChange={handleLongBreakMinutesChange}
             min={0}
           />
+        </div>
+        <div className="input-field">
           <label htmlFor="longbreak-seconds">Seconds:</label>
           <input
             type="number"
@@ -165,12 +180,15 @@ function Settings({ onClose }) {
             min={0}
           />
         </div>
-        <div className="submitDiv">
-        <button type="submit">Ok</button>
-        </div>
-        <hr className="Hr" />
-      </form>
+      </div>
     </div>
+    <div className="submitDiv">
+      <button className="submitButton" type="submit">OK</button>
+    </div>
+    <hr className="Hr" />
+  </form>
+</div>
+
   );
 }
 
