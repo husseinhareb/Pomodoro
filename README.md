@@ -35,7 +35,7 @@ Follow these steps to run the app locally:
 2. **Install dependencies**:
 
     ```
-    cd Pomodoro/src
+    cd Pomodoro/
     npm install
     ```
 
