@@ -7,6 +7,7 @@ function Timer({ onSelectMode }) {
   const [longBreak, setLongBreak] = useState({ minutes: 15, seconds: 0 });
   const [time, setTime] = useState(defaultPomodoroTime);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [selectedMode, setSelectedMode] = useState("Pomodoro");
   const [boxColor, setBoxColor] = useState("");
   const [btnColor, setBtnColor] = useState("");
@@ -64,7 +65,9 @@ function Timer({ onSelectMode }) {
   useEffect(() => {
     if (selectedMode && !isRunning) {
       const { time, boxColor } = modeOptions[selectedMode];
-      setTime(time);
+      if (!isPaused) {
+        setTime(time);
+      }
       setBoxColor(boxColor);
       setBtnColor(btnColor);
     }
@@ -105,6 +108,7 @@ function Timer({ onSelectMode }) {
   const selectMode = (mode) => {
     setSelectedMode(mode);
     setIsRunning(false);
+    setIsPaused(false);
     onSelectMode(mode);
     setBoxColor(modeOptions[mode].boxColor);
     setBtnColor(modeOptions[mode].btnColor);
@@ -113,9 +117,15 @@ function Timer({ onSelectMode }) {
 
 
 
-const startTimer = () => {
-  setIsRunning(prevIsRunning => !prevIsRunning);
-};
+  const startTimer = () => {
+    setIsRunning(prevIsRunning => !prevIsRunning);
+    setIsPaused(false);
+  };
+
+  const pauseTimer = () => {
+    setIsPaused(true);
+    setIsRunning(false);
+  }
 
   const handleModeChange = (mode) => {
     setSelectedMode(mode);
@@ -129,6 +139,7 @@ const startTimer = () => {
   const resetTimer = () => {
     handleModeChange(selectedMode);
     setIsRunning(false);
+    setIsPaused(false);
   };
 
   const handleTimerEnd = () => {
@@ -154,6 +165,7 @@ const startTimer = () => {
       setCounter(1);
     }
     setIsRunning(false);
+    setIsPaused(false);
   };
   const minutes = time.minutes;
   const seconds = time.seconds;
@@ -191,7 +203,6 @@ const startTimer = () => {
 
 
   return (
-
     <div className="box" style={{ backgroundColor: boxColor, transition: 'background-color 0.7s ease-in-out' }}>
       <div className="topButtons">
         <button className={`button ${selectedMode === "Pomodoro" ? "selected" : ""}`} onClick={() => selectMode("Pomodoro")}>Pomodoro</button>
@@ -204,7 +215,7 @@ const startTimer = () => {
           <div className="countdown">
             {minutes < 10 ? "0" : ""}
             {minutes}:</div>
-          <button className="start" onClick={startTimer} style={{ color: btnColor, transition: 'background-color 0.7s ease-in-out' }}>
+          <button className="start" onClick={isRunning ? pauseTimer : startTimer} style={{ color: btnColor, transition: 'background-color 0.7s ease-in-out' }}>
             {isRunning ? "PAUSE" : "START"}
           </button>
         </span>
