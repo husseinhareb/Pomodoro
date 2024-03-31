@@ -1,5 +1,5 @@
 # Pomodoro
-A pomodoro timer written with React FrameWork.
+A pomodoro timer written with [React](https://react.dev/).
 
 ![Screenshot from 2024-03-01 22-49-24](https://github.com/husseinhareb/Pomodoro/assets/88323940/35a99174-235f-4038-b05f-f1807fc2c053)
 
