@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '@fortawesome/fontawesome-free/css/all.css';
+import userEvent from "@testing-library/user-event";
 
 function Timer() {
     const defaultTime = 25 * 60;
@@ -15,9 +16,12 @@ function Timer() {
         return () => clearInterval(intervalId);
     }, [time, isRunning]);
 
+
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-
+    useEffect(() => {
+        document.title = minutes + ":" + (seconds < 10 ? "0" : "" + seconds);
+    }, [time])
     const toggleTimer = () => {
         setIsRunning((prevIsRunning) => !prevIsRunning);
     };
@@ -49,7 +53,7 @@ function Timer() {
         }
     }
     return (
-        <div className="box"> 
+        <div className="box">
             <span>
                 <button className="addMinute" onClick={addMinute}><i className="fas fa-plus"></i></button>
                 <div className="countdown">{minutes}:</div>
